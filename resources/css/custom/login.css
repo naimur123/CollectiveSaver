@@ -1,0 +1,136 @@
+/* Login CSS */
+@import url("https://fonts.googleapis.com/css?family=Quicksand|Roboto&display=swap");
+*{
+    margin:0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: #23242a;
+    opacity: 0.8;
+    background-position: center;
+    background-size: cover;
+}
+.form-box{
+    position: relative;
+    height: 450px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9;
+    /* background: black; */
+    /* border: 2px solid rgba(255, 255, 255, 0.473); */
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+.form-box::before{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 450px;
+    height: 450px;
+    background: linear-gradient(60deg,transparent,#0e4932,#0a883f);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+.form-box::after{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 450px;
+    height: 450px;
+    background: linear-gradient(60deg,transparent,#a70422,#9d0556);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+@keyframes animate{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+form{
+    position: absolute;
+    inset: 2px;
+    border-radius: 20px 20px;
+    background: #28292d;
+    z-index: 6;
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+h2{
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+}
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+}
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.inputbox input:focus ~ label,
+.inputbox input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.75em;
+    color: #fff;
+}
+
+.inputbox input{
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: #fff;
+}
+
+.inputbox ion-icon{
+    position: absolute;
+    right:8px;
+    color: #ffff;
+    font-size: 1.2em;
+    top: 20px
+}
+button{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #ffff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
