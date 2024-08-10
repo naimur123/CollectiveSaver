@@ -4,40 +4,73 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>CollectiveSaver</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        @vite(['resources/css/custom/login.css', 'resources/js/custom/custom.js'])
+        @vite(['resources/css/custom/login.css', 'resources/js/custom/login.js'])
 
     </head>
     <body>
-        <section>
-            <div class="form-box">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <h2>Login</h2>
-                        <div class="inputbox">
-                            <ion-icon name="person-circle-sharp"></ion-icon>
-                            <input type="text" name="phone" required placeholder=" ">
-                            <label for="">Phone</label>
-                        </div>
-                        <div class="inputbox">
-                            <ion-icon name="lock-closed"></ion-icon>
-                            <input type="password" name="password" required placeholder=" ">
-                            <label for="">Password</label>
-                        </div>
-                        <button type="submit">Login</button>
-
-                    </form>
-
+        <div class="wrapper">
+            <div class="title-text">
+                <div class="title login {{ $tab == 'login' ? 'active' : '' }}">
+                    Login Form
+                </div>
+                <div class="title signup {{ $tab == 'register' ? 'active' : '' }}">
+                    Signup Form
+                </div>
             </div>
-        </section>
+            <div class="form-container">
+                <div class="slide-controls">
+                    <input type="radio" name="slide" id="login" {{ $tab == 'login' ? 'checked' : '' }}>
+                    <input type="radio" name="slide" id="signup" {{ $tab == 'register' ? 'checked' : '' }}>
+                    <label for="login" class="slide login">Login</label>
+                    <label for="signup" class="slide signup">Signup</label>
+                    <div class="slider-tab"></div>
+                </div>
+                <div class="form-inner">
+                    <form method="POST" action="{{ route('login') }}" class="login {{ $tab == 'login' ? '' : 'hidden' }}">
+                        @csrf
+                        <div class="field">
+                            <input type="text" name="phone" placeholder="Phone number" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="Login">
+                        </div>
+                        <div class="signup-link">
+                            Not a member? <a href="">Signup now</a>
+                        </div>
+                    </form>
+                    <form method="POST" action="{{ route('register') }}" class="signup {{ $tab == 'register' ? '' : 'hidden' }}">
+                        @csrf
+                        <div class="field">
+                            <input type="text" name="name" placeholder="Full name" required>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="phone" placeholder="Phone number" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="Signup">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
+        <script>
 
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        </script>
+
     </body>
 </html>
