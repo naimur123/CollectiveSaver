@@ -25,15 +25,12 @@ class LoginController extends Controller
         ];
 
         $response = send_request('post', $url, $data);
-        if(!empty($response)){
+        if(!empty($response) && !empty($response->status)){
             Session::put('token', $response->access_token);
             $data =  $response->data;
             Session::put('user_id', $data->id);
-            $params = [
-                'data' => $data
-            ];
-            set_alert('success', $response->message);
-            return view('user.dashboard.home', $params);
+            Session::put('user_name', $data->name);
+            return redirect()->route('home')->with('data', $data);
         }
         else{
             set_alert('warning', $response->message);
@@ -60,6 +57,38 @@ class LoginController extends Controller
 
         $response = send_request('post', $url, $data);
         return $response;
+    }
+
+    /* Dashboard */
+    public function dashboard(Request $request){
+        $params = [
+            'data' => $request->data
+        ];
+        set_alert('info', 'Loggedin');
+        return view('user.dashboard.home', $params);
+    }
+
+    /* Logout */
+    public function logout(Request $request){
+        $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/logout';
+        $token = get_data('token');
+        if(!empty($token)){
+            $response = send_request('post', $url, '', $token);
+            if(!empty($response) && !empty($response->status)){
+                session()->flush();
+                set_alert('success', $response->message);
+                return redirect('login');
+            }
+            else{
+                set_alert('warning', $response->message);
+                return back();
+            }
+        }
+        else{
+            set_alert('warning', 'Operation Failed');
+            return back();
+        }
+
     }
 
 }

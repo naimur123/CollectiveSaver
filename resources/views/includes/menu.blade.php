@@ -1,17 +1,23 @@
 <body>
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#404E67">
-            <h5>CollectiveSaver</h5>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#f9f9f9">
+            <h5 id="application_name">CollectiveSaver</h5>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
+                <ul class="navbar-nav" style="margin-left: 80%">
+                    <!-- Profile image -->
+                    <li class="nav-item" >
+                        <img src="#" class="rounded-circle" alt="Image"
+                            style="height: 30px; width:30px">
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                    <!-- Dropdown menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ get_data('user_name'); }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left:20px !important">
+                            <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -25,7 +31,7 @@
             <div class="sidebar border-right" style="background-color: #f9f9f9">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Dashboard</a>
+                        <a class="nav-link active" href="#">Home</a>
                     </li>
 
                     <li class="nav-item">
