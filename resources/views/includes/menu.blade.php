@@ -21,7 +21,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
         </nav>
     </div>
 
@@ -31,25 +30,33 @@
             <div class="sidebar border-right" style="background-color: #f9f9f9">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link d-flex align-items-center {{ request()->is('home') ? 'active' : '' }}" href="{{ route('home') }}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Users</a>
+                        <a class="nav-link d-flex align-items-center {{ request()->is('funds*') ? 'active' : '' }}" href="#fundsCollapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="fundsCollapse">
+                            <i class="fas fa-wallet"></i>
+                            Funds
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="fundsCollapse">
+                            <a class="nav-link" href="#">Individual</a>
+                            <a class="nav-link" href="#">Group</a>
+                        </div>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center {{ request()->is('settings') ? 'active' : '' }}" href="#">
+                            <i class="fas fa-cog"></i>
                             Settings
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
-                            <li><a class="dropdown-item" href="#">General</a></li>
-                            <li><a class="dropdown-item" href="#">Security</a></li>
-                            <li><a class="dropdown-item" href="#">Notifications</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
+
         </div>
 
         <div class="col-md-10" style="margin-top: 70px !important" id="mainContent">

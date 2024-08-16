@@ -30,6 +30,7 @@ class LoginController extends Controller
             $data =  $response->data;
             Session::put('user_id', $data->id);
             Session::put('user_name', $data->name);
+            set_alert('success', 'Loggedin Successfully');
             return redirect()->route('home')->with('data', $data);
         }
         else{
@@ -64,7 +65,7 @@ class LoginController extends Controller
         $params = [
             'data' => $request->data
         ];
-        set_alert('info', 'Loggedin');
+        // dd(session()->all());
         return view('user.dashboard.home', $params);
     }
 
@@ -90,5 +91,6 @@ class LoginController extends Controller
         }
 
     }
+
 
 }

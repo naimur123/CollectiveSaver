@@ -2,8 +2,6 @@
 
 /* Send HTTP GET/POST request */
 
-use Brian2694\Toastr\Facades\Toastr;
-
 if(!function_exists('send_request()')){
     function send_request($type = '', $url = '', $data = '', $token = ''){
 
@@ -48,16 +46,24 @@ if(!function_exists('send_request()')){
 /* Get alert Message */
 if(!function_exists('set_alert()')){
     function set_alert($type = '', $message = ''){
-        // session()->flash($type, $message);
-        if($type == 'success'){
-            Toastr::success($message);
-        }else if($type == 'warning'){
-            Toastr::warning($message);
-        }else if($type == 'info'){
-            Toastr::info($message);
-        }else{
-            Toastr::error($message);
-        }
+        clear_alert($type);
+        session()->flash($type, $message);
+        // if($type == 'success'){
+        //     Toastr::success($message);
+        // }else if($type == 'warning'){
+        //     Toastr::warning($message);
+        // }else if($type == 'info'){
+        //     Toastr::info($message);
+        // }else{
+        //     Toastr::error($message);
+        // }
+    }
+}
+
+/* Clear alert */
+if(!function_exists('clear_alert()')){
+    function clear_alert($type = '') {
+        session()->forget($type);
     }
 }
 

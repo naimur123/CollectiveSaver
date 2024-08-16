@@ -62,21 +62,6 @@ body {
         left: 0;
     }
 
-    /* .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 500;
-        display: none;
-    } */
-
-    .overlay.show {
-        display: block;
-    }
-
     .flex-grow-1 {
         margin-top: 56px;
     }
@@ -127,4 +112,71 @@ body {
 #mainContent.expanded {
     margin-left: 10px;
     width: 100%;
+}
+
+.toast {
+    font-weight: bold;
+    font-size: 15px;
+}
+.nav-link{
+    text-decoration: none;
+    color: black;
+}
+
+.nav-item .nav-link {
+    height: 50px;
+    width: 100%;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 15px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.nav-item .nav-link i:first-child {
+    margin-right: 10px;
+    min-width: 20px;
+}
+
+.nav-item .nav-link i.fas.fa-chevron-down {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.nav-item .nav-link[aria-expanded="true"] i.fas.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.nav-item .nav-link:not([data-bs-toggle="collapse"]) i:first-child {
+    margin-right: 10px;
+    min-width: 20px;
+}
+
+.nav-item .nav-link:not([data-bs-toggle="collapse"]) {
+    justify-content: flex-start;
+}
+
+.nav-item .nav-link.active {
+    background-color: rgba(190, 240, 231, 0.4);
+    border-left: 4px solid rgb(214, 238, 234);
+}
+
+.collapse .nav-link {
+    padding-left: 30px;
+    font-weight: normal;
+}
+
+.nav-item {
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-item .nav-link:hover {
+    background-color: #f3eeee;
+    color: black;
+}
+
+.nav-item .nav-link:hover i {
+    color: black;
 }

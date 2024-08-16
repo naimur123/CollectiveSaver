@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AuditTrailLog;
 use App\Http\Middleware\CheckUserExist;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,7 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['valid_user' => CheckUserExist::class]);
+        // $middleware->alias(['valid_user' => CheckUserExist::class]);
+        // $middleware->alias(['audit_trail' => AuditTrailLog::class]);
+        $middleware->alias([
+            'valid_user' => CheckUserExist::class,
+            'audit_trail' => AuditTrailLog::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
