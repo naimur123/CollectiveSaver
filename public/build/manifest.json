@@ -6,7 +6,7 @@
     "isEntry": true
   },
   "resources/css/custom/custom.css": {
-    "file": "assets/custom-CXaUxw5W.css",
+    "file": "assets/custom-B0o6iua7.css",
     "src": "resources/css/custom/custom.css",
     "isEntry": true
   },
@@ -16,12 +16,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BkLcGe8m.js",
+    "file": "assets/app-DZ6Gcsz1.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Cr2zXhyg.css"
+      "assets/app-BQbqY-RV.css"
     ]
   },
   "resources/js/custom/custom.js": {

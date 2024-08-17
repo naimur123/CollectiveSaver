@@ -1,7 +1,7 @@
 <body>
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#f9f9f9">
-            <h5 id="application_name">CollectiveSaver</h5>
+            <h5 id="application_name">{{ $system->application_name }}</h5>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav" style="margin-left: 80%">
                     <!-- Profile image -->
@@ -13,7 +13,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ get_data('user_name'); }}
+                            {{ get_data('user_name') }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left:20px !important">
                             <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
@@ -44,16 +44,18 @@
                         </a>
                         <div class="collapse" id="fundsCollapse">
                             <a class="nav-link" href="#">Individual</a>
-                            <a class="nav-link" href="#">Group</a>
+                            <a class="nav-link" href="{{ route('groups') }}">Group</a>
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center {{ request()->is('settings') ? 'active' : '' }}" href="#">
-                            <i class="fas fa-cog"></i>
-                            Settings
-                        </a>
-                    </li>
+                    @if( $data->is_admin == 1 )
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center {{ request()->is('settings') ? 'active' : '' }}" href="#">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
 

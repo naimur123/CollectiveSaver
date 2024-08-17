@@ -4,12 +4,14 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     /* Login View*/
     public function loginForm(Request $request){
+        // session()->flush();
         $params = [
             'tab' => 'login'
         ];
@@ -23,15 +25,16 @@ class LoginController extends Controller
             'phone' => $request->phone,
             'password' => $request->password,
         ];
-
+        session()->flush();
         $response = send_request('post', $url, $data);
         if(!empty($response) && !empty($response->status)){
-            Session::put('token', $response->access_token);
+            set_data('token', $response->access_token);
             $data =  $response->data;
-            Session::put('user_id', $data->id);
-            Session::put('user_name', $data->name);
+            set_data('user_id', $data->id);
+            set_data('user_name', $data->name);
+            set_data('user_data', $data);
             set_alert('success', 'Loggedin Successfully');
-            return redirect()->route('home')->with('data', $data);
+            return redirect()->route('home');
         }
         else{
             set_alert('warning', $response->message);
@@ -62,11 +65,17 @@ class LoginController extends Controller
 
     /* Dashboard */
     public function dashboard(Request $request){
-        $params = [
-            'data' => $request->data
-        ];
-        // dd(session()->all());
-        return view('user.dashboard.home', $params);
+        $data = get_data('user_data');
+        if(!empty($data)){
+            $params = [
+                'data' => $data
+            ];
+            return view('user.dashboard.home', $params);
+        }else{
+            set_alert('warning', 'Session Out');
+            return redirect('logout');
+        }
+
     }
 
     /* Logout */

@@ -13,10 +13,10 @@
      clear_alert($type);
   }
 
-  elseif(session('info')){
+  elseif(session('error')){
 
-     $type = 'success';
-     $message = session('success');
+     $type = 'error';
+     $message = session('error');
      clear_alert($type);
   }
 

@@ -2,6 +2,8 @@
 
 /* Send HTTP GET/POST request */
 
+use Illuminate\Support\Facades\Session;
+
 if(!function_exists('send_request()')){
     function send_request($type = '', $url = '', $data = '', $token = ''){
 
@@ -48,15 +50,6 @@ if(!function_exists('set_alert()')){
     function set_alert($type = '', $message = ''){
         clear_alert($type);
         session()->flash($type, $message);
-        // if($type == 'success'){
-        //     Toastr::success($message);
-        // }else if($type == 'warning'){
-        //     Toastr::warning($message);
-        // }else if($type == 'info'){
-        //     Toastr::info($message);
-        // }else{
-        //     Toastr::error($message);
-        // }
     }
 }
 
@@ -71,6 +64,19 @@ if(!function_exists('clear_alert()')){
 if(!function_exists('get_data()')){
     function get_data($key){
        return session()->get($key);
+    }
+}
+
+/* Set Session */
+if(!function_exists('set_data()')){
+    function set_data($key = '', $value = ''){
+       if(!session()->exists($key)){
+          Session::put($key, $value);
+       }
+       else{
+          session()->forget($key);
+          set_data($key, $value);
+       }
     }
 }
 
