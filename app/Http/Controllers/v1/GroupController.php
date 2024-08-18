@@ -10,7 +10,6 @@ class GroupController extends Controller
 {
 
     /* Get Table Column List */
-
     private function getColumns(){
         $columns = ['#', 'group_name', 'account_type', 'account_name', 'account_number', 'members', 'action'];
         return $columns;
@@ -25,21 +24,19 @@ class GroupController extends Controller
 
     public function index(Request $request){
         if( $request->ajax() ){
-            $user_groups = get_data('user_groups');
-            return $this->getDataTable($user_groups);
-        }
-
-        $data = get_data('user_data');
-        $token = get_data('token');
-        $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/groups';
-        if(!empty($token)){
-            $response = send_request('get', $url, '', $token);
-            if(!empty($response) && !empty($response->status)){
-                $userGroups = $response->data->user_groups;
-                set_data('user_groups', $userGroups);
+            $token = get_data('token');
+            $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/groups';
+    
+            if(!empty($token)){
+                $response = send_request('get', $url, '', $token);
+                if(!empty($response) && !empty($response->status)){
+                    $user_groups = $response->data->user_groups;
+                    return $this->getDataTable($user_groups);
+                }
             }
+            return DataTables::of([])->make(true);
         }
-
+        $data = get_data('user_data');
         $params = [
             'tableColumns'      => $this->getColumns(),
             'dataTableColumns'  => $this->getDataTableColumns(),
@@ -47,9 +44,20 @@ class GroupController extends Controller
             'pageTitle'         => 'Groups List',
             'tableStyleClass'   => 'bg-success',
             'data'              => $data,
-            'create'            => route('home')
+            'create'            => route('group.create')
         ];
         return view('datatable.table', $params);
+    }
+
+    /* Create Group */
+    public function create(Request $request){
+        $data = get_data('user_data');
+        $params = [
+           'title' => 'Group Create',
+           'data' => $data,
+           'form_url' => route('group.store')
+        ];
+        return view('groups.create', $params);
     }
 
     /* Get Datatable value */

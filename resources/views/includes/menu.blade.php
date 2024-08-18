@@ -37,14 +37,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center {{ request()->is('funds*') ? 'active' : '' }}" href="#fundsCollapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="fundsCollapse">
+                        <a class="nav-link d-flex align-items-center {{ request()->is('groups') ? 'active' : '' }}" href="#fundsCollapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="fundsCollapse">
                             <i class="fas fa-wallet"></i>
                             Funds
                             <i class="fas fa-chevron-down"></i>
                         </a>
                         <div class="collapse" id="fundsCollapse">
                             <a class="nav-link" href="#">Individual</a>
-                            <a class="nav-link" href="{{ route('groups') }}">Group</a>
+                            <a class="nav-link {{ request()->is('groups') ? 'active' : '' }}" href="{{ route('groups') }}">Group</a>
                         </div>
                     </li>
 

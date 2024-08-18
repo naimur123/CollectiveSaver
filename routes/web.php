@@ -18,5 +18,7 @@ Route::middleware(['valid_user', 'audit_trail'])->group(function(){
 
     /* Groups */
     Route::get('/groups', [GroupController::class, 'index'])->name('groups');
+    Route::get('/group_create', [GroupController::class, 'create'])->name('group.create');
+    Route::post('/group_create', [GroupController::class, 'store'])->name('group.store');
 });
 

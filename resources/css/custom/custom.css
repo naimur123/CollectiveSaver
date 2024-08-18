@@ -107,6 +107,11 @@ body {
     #application_name{
         margin-left: 10px;
     }
+
+    #mainContent{
+        margin-left: 260px;
+        width: 100%;
+    }
 }
 
 #mainContent.expanded {
@@ -164,8 +169,8 @@ body {
 }
 
 .collapse .nav-link {
-    padding-left: 30px;
-    font-weight: normal;
+    padding-left: 60px;
+    font-weight: 30px;
 }
 
 .nav-item {
@@ -184,9 +189,8 @@ body {
 /* Loader CSS */
 #loader {
     position: fixed;
-    left: 50%;
+    left: 60%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
-    text-align: center;
 }
