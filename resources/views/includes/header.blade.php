@@ -19,6 +19,9 @@
     <!-- Datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.2/datatables.min.css"/>
 
+    <!-- Handson -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
+
     @vite(['resources/css/custom/custom.css', 'resources/js/custom/custom.js', 'resources/js/app.js'])
 
 </head>

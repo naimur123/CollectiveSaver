@@ -26,7 +26,7 @@ class GroupController extends Controller
         if( $request->ajax() ){
             $token = get_data('token');
             $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/groups';
-    
+
             if(!empty($token)){
                 $response = send_request('get', $url, '', $token);
                 if(!empty($response) && !empty($response->status)){
@@ -60,6 +60,30 @@ class GroupController extends Controller
         return view('groups.create', $params);
     }
 
+    /* Group Store */
+    public function store(Request $request){
+        $token = get_data('token');
+        $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/create_group';
+
+        $data = [
+            'name' => $request->name,
+            'account_type' => $request->account_type,
+            'account_name' => $request->account_name,
+            'account_number' => $request->account_number,
+            'members' => $request->members,
+            'details' => $request->details,
+        ];
+        $response = send_request('post', $url, $data, $token);
+        if(!empty($response) && !empty($response->status)){
+            set_alert('success', $response->message);
+            return back();
+        }
+        else{
+            set_alert('error', $response->message);
+            return back();
+        }
+    }
+
     /* Get Datatable value */
     public function getDataTable($user_groups){
 
@@ -73,9 +97,11 @@ class GroupController extends Controller
                 ->addColumn('members', function($group) {
                     $members = '';
                     foreach ($group->members as $member) {
-                        $members .= ucfirst($member->name) . ',';
+                        if (!empty($member[0])) {
+                            $members .= ucfirst($member[0]) . ', ';
+                        }
                     }
-                    return rtrim($members, ',');
+                    return rtrim($members, ', ');
                 })
                 ->addColumn('action', function() {
                     return '<a href="#" class="btn btn-sm btn-primary">Edit</a>

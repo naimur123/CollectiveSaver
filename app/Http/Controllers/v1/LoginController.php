@@ -33,7 +33,7 @@ class LoginController extends Controller
             set_data('user_id', $data->id);
             set_data('user_name', $data->name);
             set_data('user_data', $data);
-            set_alert('success', 'Loggedin Successfully');
+            set_alert('success', $response->message);
             return redirect()->route('home');
         }
         else{
