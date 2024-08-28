@@ -2,6 +2,7 @@
 
 /* Send HTTP GET/POST request */
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 
 if(!function_exists('send_request()')){
@@ -77,6 +78,17 @@ if(!function_exists('set_data()')){
           session()->forget($key);
           set_data($key, $value);
        }
+    }
+}
+
+/* Set Session */
+if(!function_exists('month_name()')){
+    function month_name($value = '', $format = ''){
+        $monthname = '';
+        if(empty($format)){
+           $monthname = Carbon::createFromFormat('m', $value)->format('F');
+        }
+        return $monthname;
     }
 }
 

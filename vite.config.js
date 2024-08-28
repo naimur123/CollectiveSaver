@@ -9,9 +9,11 @@ export default defineConfig({
                 'resources/css/custom/custom.css',
                 'resources/css/custom/login.css',
                 'resources/js/app.js',
-                'resources/js/custom/custom.js'
+                'resources/js/custom/custom.js',
+                'resources/js/custom/login.js'
             ],
             refresh: true,
         }),
+
     ],
 });

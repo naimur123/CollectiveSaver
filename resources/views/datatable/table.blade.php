@@ -26,8 +26,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="table" class="table table-striped table-bordered nowrap">
-                        <thead class="{{ isset($tableStyleClass) ? $tableStyleClass : 'bg-success'}}">
+                    <table id="table" class="table">
+                        <thead>
                             <tr>
                                 @foreach($tableColumns as $column)
                                     <th> @lang('table.'.$column)</th>
@@ -52,7 +52,6 @@
         table = $('#table').DataTable({
             processing: true,
             serverSide: true,
-            // ajax: '{{ isset($dataTableUrl) && !empty($dataTableUrl) ? $dataTableUrl : URL::current() }}',
             ajax:{
                 url: '{{ isset($dataTableUrl) && !empty($dataTableUrl) ? $dataTableUrl : URL::current() }}',
                 beforeSend: function() {

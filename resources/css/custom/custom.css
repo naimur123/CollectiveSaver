@@ -194,3 +194,23 @@ body {
     transform: translate(-50%, -50%);
     z-index: 9999;
 }
+
+.row-option {
+    display: flex;
+    flex-direction: column;
+}
+.row-option .button-group {
+    display: inline-block;
+
+}
+.row-option .button-group a{
+    text-decoration: none;
+}
+
+table.dataTable tbody tr {
+    background-color: #fff !important;
+}
+table.dataTable tbody tr td {
+    background-color: #fff !important;
+    border: none !important;
+}

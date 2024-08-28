@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\FundController;
 use App\Http\Controllers\v1\GroupController;
 use App\Http\Controllers\v1\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -20,5 +21,11 @@ Route::middleware(['valid_user', 'audit_trail'])->group(function(){
     Route::get('/groups', [GroupController::class, 'index'])->name('groups');
     Route::get('/group_create', [GroupController::class, 'create'])->name('group.create');
     Route::post('/group_create', [GroupController::class, 'store'])->name('group.store');
+    Route::get('/group_edit/{id}', [GroupController::class, 'edit'])->name('group.edit');
+
+    /* Group Fund */
+    Route::get('/group_fund',[FundController::class, 'index'])->name('group_fund');
+    Route::get('/group_fund_create',[FundController::class, 'create'])->name('group.fund.create');
+    Route::post('/group_fund_create',[FundController::class, 'index'])->name('group.fund.store');
 });
 

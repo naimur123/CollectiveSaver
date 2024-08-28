@@ -11,14 +11,14 @@ class GroupController extends Controller
 
     /* Get Table Column List */
     private function getColumns(){
-        $columns = ['#', 'group_name', 'account_type', 'account_name', 'account_number', 'members', 'action'];
+        $columns = ['#', 'group_name', 'account_type', 'account_name', 'account_number', 'members'];
         return $columns;
     }
 
     /* Get DataTable Column List */
 
     private function getDataTableColumns(){
-        $columns = ['#', 'name', 'account_type', 'account_name', 'account_number', 'members', 'action'];
+        $columns = ['#', 'name', 'account_type', 'account_name', 'account_number', 'members'];
         return $columns;
     }
 
@@ -60,10 +60,36 @@ class GroupController extends Controller
         return view('groups.create', $params);
     }
 
+    /* Create Edit */
+    public function edit(Request $request){
+        $token = get_data('token');
+        $id = $request->id;
+        $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/groups/' .$id;
+        $response = send_request('', $url, '', $token);
+        if(!empty($response) && !empty($response->status)){
+            $data = get_data('user_data');
+            $params = [
+               'title' => 'Group Create',
+               'data' => $data,
+               'group_data' => $response->data,
+               'form_url' => route('group.store')
+            ];
+            return view('groups.create', $params);
+        }
+        else{
+
+        }
+
+    }
+
     /* Group Store */
     public function store(Request $request){
         $token = get_data('token');
         $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/create_group';
+
+        if(!empty($request->id)){
+            $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/create_group/' . $request->id;
+        }
 
         $data = [
             'name' => $request->name,
@@ -90,7 +116,16 @@ class GroupController extends Controller
         if(!empty($user_groups)){
             return DataTables::of($user_groups)
                 ->addColumn('#', function(){ return ++$this->index; })
-                ->addColumn('name', function($row){ return $row->name; })
+                ->addColumn('name', function($row){
+                    $rowDetails = '<div class="row-option">';
+                    $rowDetails .= '<span>' . $row->name . '</span>';
+                    $rowDetails .= '<div class="button-group mt-2">';
+                    $rowDetails .= '<a href="' . route('group.edit', $row->id ) . '">Edit</a> | ';
+                    $rowDetails .= '<a href="#">Delete</a>';
+                    $rowDetails .= '</div>';
+                    $rowDetails .= '</div>';
+                    return $rowDetails;
+                })
                 ->addColumn('account_type', function($row){ return $row->account_type; })
                 ->addColumn('account_name', function($row){ return $row->account_name; })
                 ->addColumn('account_number', function($row){ return $row->account_number; })
@@ -103,11 +138,7 @@ class GroupController extends Controller
                     }
                     return rtrim($members, ', ');
                 })
-                ->addColumn('action', function() {
-                    return '<a href="#" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>';
-                })
-                ->rawColumns(['action'])
+                ->rawColumns(['name'])
                 ->make(true);
         }else{
             return DataTables::of([])->make(true);

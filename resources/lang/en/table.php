@@ -9,5 +9,10 @@ return [
     "account_number"   => "Account number",
     "members"          => "Members",
     "action"           => "Action",
+    "year"             => "Year",
+    "month"            => "Month",
+    "day"              => "Day",
+    "total_amount"     => "Toatl Amount",
+    "updated_at"       => "Last Updated",
 
 ];

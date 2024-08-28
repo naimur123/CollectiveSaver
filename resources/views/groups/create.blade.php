@@ -96,13 +96,12 @@
                 {!! old('members_data') !!}
             @elseif(isset($group_data->members))
                 @foreach($group_data->members as $member)
-                    ["{{ $member->name }}", "{{ $member->email }}", "{{ $member->phone }}"],
+                  ["{{ $member[0] }}", "{{ $member[1] }}", "{{ $member[2] }}"],
                 @endforeach
             @else
                 ["", "", ""]
             @endif
         ];
-
         var container = document.getElementById('members-handsontable');
         var hot = new Handsontable(container, {
             licenseKey: 'non-commercial-and-evaluation',
@@ -112,9 +111,9 @@
             rowHeaders: true,
             colHeaders: ['Name', 'Email', 'Phone'],
             columns: [
-                {data: 'name', type: 'text'},
-                {data: 'email', type: 'text'},
-                {data: 'phone', type: 'text'}
+                {data: 0, type: 'text'},
+                {data: 1, type: 'text'},
+                {data: 2, type: 'text'}
             ],
             stretchH: 'all',
             minSpareRows: 1,

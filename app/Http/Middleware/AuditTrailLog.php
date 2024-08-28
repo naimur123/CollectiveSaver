@@ -15,7 +15,6 @@ class AuditTrailLog
      */
     public function handle(Request $request, Closure $next)
     {
-        //
         $url = 'https://collectivesaverapi.naimur.com.bd/api/v1/saveActivity';
         $data = [
             'for' => 'audit_trail',
