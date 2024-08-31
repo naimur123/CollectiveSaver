@@ -27,5 +27,6 @@ Route::middleware(['valid_user', 'audit_trail'])->group(function(){
     Route::get('/group_fund',[FundController::class, 'index'])->name('group_fund');
     Route::get('/group_fund_create',[FundController::class, 'create'])->name('group.fund.create');
     Route::post('/group_fund_create',[FundController::class, 'index'])->name('group.fund.store');
+    Route::get('/group_fund_individual',[FundController::class, 'group_fund_individual'])->name('group_fund_individual');
 });
 

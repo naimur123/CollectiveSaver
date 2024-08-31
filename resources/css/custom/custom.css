@@ -195,6 +195,7 @@ body {
     z-index: 9999;
 }
 
+/* Datatable */
 .row-option {
     display: flex;
     flex-direction: column;
@@ -214,3 +215,4 @@ table.dataTable tbody tr td {
     background-color: #fff !important;
     border: none !important;
 }
+

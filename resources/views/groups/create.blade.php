@@ -120,7 +120,8 @@
             minSpareRows: 1,
             autoWrapRow: true,
             autoWrapCol: true,
-            contextMenu: true
+            contextMenu: true,
+            rowHeights: 40,
         });
 
         $('form').on('submit', function(e) {

@@ -60,7 +60,14 @@ class LoginController extends Controller
         ];
 
         $response = send_request('post', $url, $data);
-        return $response;
+        if(!empty($response) && !empty($response->status)){
+            set_alert('success', $response->message);
+            return redirect('login');
+        }
+        else{
+            set_alert('warning', $response->message);
+            return back();
+        }
     }
 
     /* Dashboard */
