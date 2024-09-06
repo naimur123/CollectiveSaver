@@ -1,7 +1,6 @@
 @extends('masterPage')
 
 @section('content')
-
 <div class="row justify-content-center">
     <div class="col-12 col-lg-12 mt-2 mb-2">
         <div class="card">

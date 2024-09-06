@@ -14,5 +14,5 @@ return [
     "day"              => "Day",
     "total_amount"     => "Toatl Amount",
     "updated_at"       => "Last Updated",
-
+    "group_identifi"   => "Idenditifaction",
 ];

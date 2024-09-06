@@ -4,6 +4,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
 }
 
 #app {
@@ -110,19 +111,20 @@ body {
 
     #mainContent{
         margin-left: 260px;
-        width: 100%;
+        width: calc(100% - 260px); /* Adjust width to avoid overflow */
     }
 }
 
 #mainContent.expanded {
     margin-left: 10px;
-    width: 100%;
+    width: calc(100% - 10px); /* Adjust width when sidebar is collapsed */
 }
 
 .toast {
     font-weight: bold;
     font-size: 15px;
 }
+
 .nav-link{
     text-decoration: none;
     color: black;
@@ -186,6 +188,7 @@ body {
     color: black;
 }
 
+
 /* Loader CSS */
 #loader {
     position: fixed;
@@ -216,3 +219,6 @@ table.dataTable tbody tr td {
     border: none !important;
 }
 
+body .a{
+    text-decoration: none;
+}

@@ -1,7 +1,6 @@
 @extends('masterPage')
 
 @section('content')
-
 <div class="row justify-content-center">
     <div class="col-12 col-lg-12 mt-2 mb-2">
         <div class="card">
@@ -10,7 +9,10 @@
                     @csrf
                     <div class="col-12 mt-10">
                         <h3>{{ $title ?? "" }}</h3>
-                        <input type="hidden" name="id" value="{{ $group_data->id ?? 0 }}">
+                        <input type="hidden" name="id" value="{{ $group_fund_data->id ?? 0 }}">
+                        @if(isset($group_fund_data->group_id))
+                            <input type="hidden" name="group_id" value="{{ $group_fund_data->group_id }}">
+                        @endif
                         <hr/>
                     </div>
 
@@ -18,10 +20,10 @@
                     <div class="col-8 col-sm-6 col-md-4 my-2">
                         <div class="form-group">
                             <label>Group Name<span class="text-danger">*</span></label>
-                            <select class="form-control" name="group_id" id="group_id">
+                            <select class="form-control" name="group_id" id="group_id" {{ (isset($group_fund_data->group_id)) ? 'disabled' : '' }}>
                                 <option value="">Select</option>
                                 @foreach($user_groups as $group)
-                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                    <option value="{{ $group->id }}" {{ (isset($group_fund_data->group_id) && $group->id == $group_fund_data->group_id) ? 'selected' : '' }}>{{ $group->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -50,10 +52,22 @@
 
 <script type="module">
     $(document).ready(function(){
+        var fundData = [
+            @if(old('fund_info'))
+                {!! old('fund_info') !!}
+            @elseif(isset($group_fund_data->fund_info))
+                @foreach($group_fund_data->fund_info as $fund_info)
+                  ["{{ $fund_info->name }}", "{{ $fund_info->amount }}", "{{ $fund_info->transferred_from }}"],
+                @endforeach
+            @else
+                ["", "", ""]
+            @endif
+        ];
+        var isEditable = fundData.length > 0 && fundData[0][0] !== "";
         var container = document.getElementById('fund-handsontable');
         var hot = new Handsontable(container, {
             licenseKey: 'non-commercial-and-evaluation',
-            data: [],
+            data: fundData,
             startRows: 1,
             startCols: 3,
             rowHeaders: true,
@@ -64,8 +78,18 @@
                     source: [],
                     data: 0
                 },
-                { data: 1 },
-                { data: 2 }
+                {
+                    type: 'numeric',
+                    data: 1,
+                    numericFormat: {
+                        pattern: '0'
+                    }
+
+                },
+                {
+                    type: 'text',
+                    data: 2
+                }
             ],
             stretchH: 'all',
             minSpareRows: 1,
@@ -74,7 +98,29 @@
             autoWrapCol: true,
             contextMenu: true,
             rowHeights: 40,
-            readOnly: true
+            readOnly: !isEditable,
+            beforeChange: function (changes, source) {
+                changes.forEach(function (change) {
+                    var prop = change[1];
+                    var oldValue = change[2];
+                    var newValue = change[3];
+
+                    if (prop === 1) {
+                        if (newValue && newValue.toString().includes('.')) {
+                            changes.splice(0, changes.length);
+                            set_alert('error', 'Floating values are not allowed');
+                        } else if (!/^\d*$/.test(newValue)) {
+                            changes.splice(0, changes.length);
+                            set_alert('error', 'Only numeric values are allowed.');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('form').on('submit', function(e) {
+            var group_fund_data = $('#fund-data');
+            group_fund_data.val(JSON.stringify(hot.getData()));
         });
 
         $('#group_id').change(function() {

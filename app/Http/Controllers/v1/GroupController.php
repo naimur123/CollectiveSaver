@@ -77,7 +77,8 @@ class GroupController extends Controller
             return view('groups.create', $params);
         }
         else{
-
+             set_alert('error', $request->message);
+             return back();
         }
 
     }
@@ -120,8 +121,7 @@ class GroupController extends Controller
                     $rowDetails = '<div class="row-option">';
                     $rowDetails .= '<span>' . $row->name . '</span>';
                     $rowDetails .= '<div class="button-group mt-2">';
-                    $rowDetails .= '<a href="' . route('group.edit', $row->id ) . '">Edit</a> | ';
-                    $rowDetails .= '<a href="#">Delete</a>';
+                    $rowDetails .= '<a href="' . route('group.edit', $row->id ) . '">Edit</a>';
                     $rowDetails .= '</div>';
                     $rowDetails .= '</div>';
                     return $rowDetails;
