@@ -5,7 +5,7 @@
     "isEntry": true
   },
   "resources/css/custom/custom.css": {
-    "file": "assets/custom-B9hgw8-_.css",
+    "file": "assets/custom-B3IIMiNj.css",
     "src": "resources/css/custom/custom.css",
     "isEntry": true
   },
@@ -15,12 +15,12 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-B-dcSP-m.js",
+    "file": "assets/app-SqSieceU.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-qdfDlOC9.css"
+      "assets/app-BU9Wo7IW.css"
     ]
   },
   "resources/js/custom/custom.js": {
